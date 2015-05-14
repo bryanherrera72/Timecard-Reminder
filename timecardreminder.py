@@ -10,12 +10,13 @@
 from PyQt4 import QtCore, QtGui
 
 import sys, pickle
+
+"initial PyQt stuff"
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
     def _fromUtf8(s):
         return s
-
 try:
     _encoding = QtGui.QApplication.UnicodeUTF8
     def _translate(context, text, disambig):
@@ -73,10 +74,8 @@ class Ui_Form(QtGui.QWidget):
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.verticalLayout_4.addWidget(self.pushButton)
         self.verticalLayout_3.addLayout(self.verticalLayout_4)
-
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "*Reminder!*", None))
         self.label.setText(_translate("Form", "Reminder to do you time card!!", None))
@@ -87,7 +86,6 @@ class Ui_Form(QtGui.QWidget):
     def logSelectedDate(self):
         self.dateselected = self.calendarWidget.selectedDate()
         self.storeSelectedDate()
-
     def storeSelectedDate(self):
         print self.dateselected 
         if self.dateselected is not None: 
@@ -96,7 +94,6 @@ class Ui_Form(QtGui.QWidget):
             pickle.dump(duedate, self.currentfile)
             print "date stored to file as "+ str(duedate)
         else: print "couldnt write anything"
-
     def calculateNextDate(self,thisdate):
         return thisdate.addDays(14)
 
@@ -115,6 +112,7 @@ def prepareFile(text):
         
 
 if __name__ == '__main__': 
+    "check to see if the current date matches with the stored date"
     prepareFile("date.txt")
     currentdate = QtCore.QDate.currentDate()
     storeddate = pickle.load(open("date.txt", "rb"))
